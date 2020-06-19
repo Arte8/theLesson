@@ -16,10 +16,69 @@
       </button>
       <a class="navbar-brand" href="#">The Le$$on</a>
 
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+      Notification Bell User Avatar
+      xWe've updated our Privacy Policy to better reflect how we collect, use and share your information. Updated Privacy Policy
+
+      Lesson 17: Testing User Login & Adding Login Links to the Navbar
+      In the previous lesson, we set up user authentication using Devise. The application only works if a user explicitly changes the URL to the correct URL. In this lesson, we'll include links to allow users to sign up, sign in and sign out into the top navigation.
+
+      We also will show the correct links in the correct situations: if no user is signed in, they should be able to sign up or sign in. However, if a user is signed in they should have the ability to sign out.
+
+
+      In the last step we installed Devise, which adds all the user authentication to our application. Now let's go and test our new user authentication.
+
+      Go back and run this command in the terminal:
+
+      $ rake routes
+      We'll see the new pages that got set up by Devise. There are a couple of particularly interesting routes that got set up that we should check out:
+
+      new_user_session      GET  /users/sign_in(.:format)      devise/sessions#new
+      new_user_registration GET  /users/sign_up(.:format)      devise/registrations#new
+      new_user_password     GET  /users/password/new(.:format) devise/passwords#new
+      First let's just look at the sign-up page. Go to this page that we see in our routes: http://localhost:3030/users/sign_up. Take a moment and sign up for a new user account with your web application.
+
+      Nice—it looks like it's the page that will allow users to sign up. Similarly, the other URLs that we pointed out will allow users to sign in and reset their password.
+
+      So now that we know Devise is installed, let's add some links to the relevant pages in the navbar.
+
+      If we keep looking in the Devise documentation under the getting started section we can see the section for Controllers, filters and helpers. This is telling us two interesting ways that we'll be able to use Devise. It says we can both add a before_filter :authenticate_user! to require that a user is authenticated before accessing a page, or we can access the current signed-in user using current_user. It's also telling us we can check to see if a user is signed in by running code that looks like user_signed_in?.
+
+      With those three things we can do a lot to make the user authentication work fully.
+
+      First, in the right-hand part of the top nav, let's add some code to display if a user is logged in.
+      Open app/views/layouts/application.html.erb and adjust the navbar to look like this:
+
+      <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <%= link_to 'Nomster', root_path, class: 'navbar-brand' %>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item">
+              <%= link_to new_place_path, class: 'nav-link' do %>
+                <i class="fa fa-plus-circle"></i>
+                New Place
+              <% end %>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'A user is signed in!', '#', class: 'nav-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'No user is signed in :(', '#', class: 'nav-link' %>
+              </li>
+            <% end %>
+
+      <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="#">Link</a> -->
           <li>
         </ul>
       </div>
