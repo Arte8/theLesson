@@ -10,7 +10,6 @@ class Instructor::SectionsController < ApplicationController
     @section = @course.sections.create(section_params)
     redirect_to instructor_course_path(@course)
   end
-
   private
 
   def section_params
