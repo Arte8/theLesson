@@ -3,10 +3,9 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   resources :courses, only: [:index, :show]
   namespace :instructor do
+    resources :sections, only: []
     resources :courses, only: [:new, :create, :show] do
-      resources :sections, only: [:new, :create] do
-      resources :lessons, only: [:new, :create]
+      resources :sections, only: [:new, :create]
+    end
     end
   end
-end
-end
