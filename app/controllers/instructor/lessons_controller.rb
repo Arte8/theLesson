@@ -1,4 +1,5 @@
 class Instructor::LessonsController < ApplicationController
-  def new_instructor_course_section_path
+  def new
+    @section = Section.find(params[:section_id])
   end
 end
