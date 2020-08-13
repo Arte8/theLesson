@@ -2,14 +2,12 @@ class Instructor::SectionsController < ApplicationController
 # < HEAD
 # =======
   def new
-    @course = Course.find(params[:course_id])
     @section = Section.new
     end
 
   def create
-    @course = Course.find(params[:course_id])
     @section = @course.sections.create(section_params)
-    redirect_to instructor_course_path(@course)
+    redirect_to instructor_course_path(current_course)
   end
 
   private
