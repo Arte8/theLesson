@@ -1,4 +1,5 @@
 class Instructor::SectionsController < ApplicationController
+  before_action :authenticate_user!
 # < HEAD
 # =======
   def new
