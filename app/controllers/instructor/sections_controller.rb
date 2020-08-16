@@ -8,7 +8,7 @@ class Instructor::SectionsController < ApplicationController
     end
 
   def create
-    @section = @course.sections.create(section_params)
+    @section = @course.section.create(section_params)
     redirect_to instructor_course_path(current_course)
   end
 
